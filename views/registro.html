@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corner Craft</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<body class="bg-green-50 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-center text-lg font-semibold text-white bg-green-600 py-3 rounded-t-lg">Criar Conta</h2>
+        
+        <form id="registro" class="space-y-4 mt-4">
+            <div>
+                <label class="block text-gray-700">Nome completo</label>
+                <div class="flex items-center border rounded-md px-3 py-2 bg-gray-100">
+                    <span class="text-gray-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                      </svg>
+                      </span>
+                    <input type="text" placeholder="Seu nome completo" class="bg-gray-100 outline-none w-full ml-2">
+                </div>
+            </div>
+            <div>
+                <label class="block text-gray-700">Email</label>
+                <div class="flex items-center border rounded-md px-3 py-2 bg-gray-100">
+                    <span class="text-gray-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                      </svg>
+                      </span>
+                    <input type="email" placeholder="seu.email@exemplo.com" class="bg-gray-100 outline-none w-full ml-2">
+                </div>
+            </div>
+            <div>
+                <label class="block text-gray-700">Senha</label>
+                <div class="flex items-center border rounded-md px-3 py-2 bg-gray-100">
+                    <span class="text-gray-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                      </span>
+                    <input type="password" placeholder="Crie uma senha segura" class="bg-gray-100 outline-none w-full ml-2">
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 hover:cursor-pointer transition">Criar Conta</button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-4">
+            Já tem uma conta? <a href="login.html" class="text-green-600 hover:underline">Faça login</a>
+        </p>
+
+        <div class="text-sm text-gray-500 mt-6 text-center">
+            <p>Para facilitar os testes, você pode usar:</p>
+            <p><strong>Email:</strong> admin@cornercraft.com</p>
+            <p><strong>Senha:</strong> admin123</p>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById("registro").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const email = document.querySelector("input[type='email']").value;
+        const password = document.querySelector("input[type='password']").value;
+    
+        const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+    
+        const data = await response.json();
+        alert(data.message);
+    
+        if (response.ok) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+    
+
+</html>
